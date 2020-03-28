@@ -2,16 +2,16 @@
 An aid in text-based time logging
 
 ## Installation
-Make sure clockout.bash has executable permission. If this not possible, you can run it by calling bash first.
+Make sure clockout.bash has executable permission set. If this is not possible, you can run it by calling it from bash.
 
 Dependencies:
 - bash
-- egrep
 - bc
+- egrep
 - units
 
 ## Usage
-A text-based inputfile is expected according to the following format:
+A text-based inputfile is expected according to the following format (example):
 ```
 ABC-1           09:00   09:10
 DEF-1           09:10   09:20
@@ -33,12 +33,12 @@ DEF-1				09:10	09:20	10
 Total: 	1 hr + 40 min
 ```
 
-The calculated timesheet is outputted to Stdout, if dependencies are met and the inputfile conforms to the expected format. The output can be piped to another file, if desired.
+If the dependencies are met and the inputfile conforms to the expected format, then the calculated timesheet is outputted to Stdout. The output can be piped to another file, if desired.
 
 ## Possible improvements
 
-- Add tests
-- Support comments
+- Add tests for the program itself
+- Support comments on timelogs
 - Add a test for timelog overlap
 
 ## Contributing
