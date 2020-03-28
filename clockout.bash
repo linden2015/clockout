@@ -15,8 +15,6 @@ if [ "$1" = "" ]; then
     echo "Error: no input file provided" >&2
     exit 1
 fi
-#DATA=$(cat $1)
-#cat $1 | while read line
 while read -r line
 do
     if ! echo "$line" | egrep -q '^[^s]+\s+[0-2][0-9]:[0-5][0-9]\s+[0-2][0-9]:[0-5][0-9]$'; then
