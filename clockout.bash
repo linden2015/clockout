@@ -17,7 +17,7 @@ if [ "$1" = "" ]; then
 fi
 while read -r line
 do
-    if ! echo "$line" | egrep -q '^[^s]+\s+[0-2][0-9]:[0-5][0-9]\s+[0-2][0-9]:[0-5][0-9]$'; then
+    if ! echo "$line" | egrep -q '^\S+\s+[0-2][0-9]:[0-5][0-9]\s+[0-2][0-9]:[0-5][0-9]$'; then
         echo -e "Error: input file has incorrect format on line:\n$line" >&2
         exit 1
     fi
