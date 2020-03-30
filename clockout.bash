@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Test dependencies
-if ! [ -x "$(command -v bc)" ]; then
-    echo 'Error: bc is not installed.' >&2
-    exit 1
-fi
-if ! [ -x "$(command -v units)" ]; then
-    echo 'Error: units not installed.' >&2
-    exit 1
-fi
+test_dependency () {
+    if ! [ -x "$(command -v $1)" ]; then
+        echo "Error: $1 is not installed." >&2
+        exit 1
+    fi
+}
+test_dependency "bc"
+test_dependency "units"
 
 # Test input file
 if [ "$1" = "" ]; then
@@ -17,18 +16,18 @@ if [ "$1" = "" ]; then
 fi
 while read -r line
 do
-    if ! echo "$line" | egrep -q '^\S+\s+[0-2][0-9]:[0-5][0-9]\s+[0-2][0-9]:[0-5][0-9]$'; then
+    if ! echo "$line" | egrep -q '^\S+\s+(2[0-3]|[0-1][0-9]):[0-5][0-9]\s+(2[0-3]|[0-1][0-9]):[0-5][0-9]$'; then
         echo -e "Error: input file has incorrect format on line:\n$line" >&2
         exit 1
     fi
-done < $1
+done < "$1"
 
 # Clockout
 TOTAL=0
 PREVIOUS_STORY=""
 PREVIOUS_DURATION=0
 SUBTOTAL=0
-DATA=$(cat $1 | sort)
+DATA=$(sort "$1")
 DATA+="\n"
 echo -e "$DATA" | { while read line
 do
