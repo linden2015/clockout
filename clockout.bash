@@ -16,7 +16,7 @@ if [ "$1" = "" ]; then
 fi
 while read -r line
 do
-    if ! echo "$line" | egrep -q '^\S+\s+(2[0-3]|[0-1][0-9]):[0-5][0-9]\s+(2[0-3]|[0-1][0-9]):[0-5][0-9]$'; then
+    if ! echo "$line" | egrep -q '^\S+\s+(2[0-3]|[0-1][0-9]):[0-5][0-9]\s+(2[0-3]|[0-1][0-9]):[0-5][0-9](\s.*)?$'; then
         echo -e "Error: input file has incorrect format on line:\n$line" >&2
         exit 1
     fi
@@ -34,6 +34,7 @@ do
     STORY=$(echo $line | awk '{print $1}')
     FROM=$(echo $line | awk '{print $2}')
     TO=$(echo $line | awk '{print $3}')
+    COMMENT=$(echo -e $line | sed -E 's/\s+/ /g' | cut --delimiter=' ' --fields=1,2,3 --complement)
     FROM_EPOCH=$(date +%s --date=$FROM)
     TO_EPOCH=$(date +%s --date=$TO)
     DURATION=$(echo "($TO_EPOCH - $FROM_EPOCH) / 60.0" | bc)
@@ -50,7 +51,7 @@ do
         SUBTOTAL=$DURATION
     fi
     if [ "$line" != "" ]; then
-        echo -e "$STORY\t\t\t\t$FROM\t$TO\t$DURATION"
+        echo -e "$STORY\t\t\t\t$FROM\t$TO\t$DURATION\t$COMMENT"
     fi
     PREVIOUS_STORY=$STORY
     PREVIOUS_DURATION=$DURATION

@@ -14,7 +14,7 @@ Dependencies:
 A text-based inputfile is expected according to the following format (example):
 ```
 ABC-1           09:00   09:10
-DEF-1           09:10   09:20
+DEF-1           09:10   09:20   Urgent call
 ABC-1           09:35   10:55
 ```
 Any type and amount of whitespace characters are allowed, as long as there are three columns on each line. Empty lines are not allowed.
@@ -24,11 +24,11 @@ Running the program from CLI:
 
 The output of the above sample would look like:
 ```
-ABC-1				09:00	09:10	10
-ABC-1				09:35	10:55	80
+ABC-1				09:00	09:10	10	
+ABC-1				09:35	10:55	80	
 └ Subtotal: 90
 
-DEF-1				09:10	09:20	10
+DEF-1				09:10	09:20	10	Urgent call
 
 Total: 	1 hr + 40 min
 ```
@@ -38,7 +38,6 @@ If the dependencies are met and the inputfile conforms to the expected format, t
 ## Possible improvements
 
 - Add tests for the program itself
-- Support comments on timelogs
 - Add a test for timelog overlap
 
 ## Contributing
